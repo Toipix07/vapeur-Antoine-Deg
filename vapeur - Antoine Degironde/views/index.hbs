@@ -1,0 +1,19 @@
+{{> header }}
+
+<main>
+    <h1>Tous les Jeux</h1>
+
+    {{#if games.length}}
+        <ul>
+            {{#each games}}
+                <li>
+                    <strong>{{this.title}}</strong> - {{this.genre.name}} - {{this.editor.name}}
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>Aucun jeu trouvé.</p>
+    {{/if}}
+</main>
+
+{{> footer }}

@@ -1,0 +1,13 @@
+{{> header }}
+
+<main>
+    <h1>Modifier l'éditeur : {{editor.name}}</h1>
+    <form action="/editors/{{editor.id}}/edit" method="POST">
+        <label for="name">Nom de l'éditeur :</label>
+        <input type="text" name="name" id="name" value="{{editor.name}}" required>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+</main>
+
+{{> footer }}

@@ -1,0 +1,18 @@
+{{> header }}
+
+<main>
+  <h1>Genres de jeux</h1>
+  {{#if genres.length}}
+    <ul>
+      {{#each genres}}
+        <li>
+          <strong>{{this.name}}</strong>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>Aucun genre trouvé.</p>
+  {{/if}}
+</main>
+
+{{> footer }}

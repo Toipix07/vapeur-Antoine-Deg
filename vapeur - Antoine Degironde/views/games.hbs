@@ -1,0 +1,26 @@
+{{> header }}
+
+<main>
+    <h1>Tous les Jeux</h1>
+
+    <!-- Bouton pour ajouter un jeu -->
+    <section>
+        <h2>Ajouter un jeu</h2>
+        <a href="/games/create"><button>Créer un jeu</button></a>
+    </section>
+
+    {{#if games.length}}
+        <ul>
+            {{#each games}}
+                <li>
+                    <strong>{{this.title}}</strong> - {{this.genre.name}} - {{this.editor.name}}
+                    <a href="/games/{{this.id}}">Voir plus</a>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>Aucun jeu trouvé.</p>
+    {{/if}}
+</main>
+
+{{> footer }}

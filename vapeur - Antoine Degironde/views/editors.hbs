@@ -1,0 +1,28 @@
+{{> header }}
+<main>
+    <h1>Tous les Éditeurs</h1>
+<!-- Bouton pour ajouter un éditeur -->
+<section>
+    <h2>Ajouter un éditeur</h2>
+    <a href="/editors/create"><button>Créer un éditeur</button></a>
+</section>
+
+{{#if editors.length}}
+    <ul>
+        {{#each editors}}
+            <li>
+                <strong>{{this.name}}</strong>
+                <!-- Boutons pour modifier et supprimer -->
+                <a href="/editors/{{this.id}}/edit"><button>Modifier</button></a>
+                <form action="/editors/{{this.id}}/delete" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet éditeur ?')">Supprimer</button>
+                </form>
+
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>Aucun éditeur trouvé.</p>
+{{/if}}
+</main>
+{{> footer }}

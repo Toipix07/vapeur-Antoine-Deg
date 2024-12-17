@@ -1,0 +1,22 @@
+{{> header }}
+
+<main>
+    <h1>{{game.title}}</h1>
+    <p><strong>Description : </strong>{{game.description}}</p>
+    <p><strong>Date de sortie : </strong>{{formatDate game.releaseDate}}</p>
+    <p><strong>Genre : </strong><a href="/genres/{{game.genre.id}}">{{game.genre.name}}</a></p>
+    <p><strong>Éditeur : </strong><a href="/editors/{{game.editor.id}}">{{game.editor.name}}</a></p>
+
+    <!-- Liens pour modifier ou supprimer le jeu -->
+    <section>
+        <a href="/games/{{game.id}}/edit"><button>Modifier</button></a>
+        <form action="/games/{{game.id}}/delete" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ?')">Supprimer</button>
+        </form>
+    </section>
+
+    <!-- Retour à la liste des jeux -->
+    <a href="/games">Retour à la liste des jeux</a>
+</main>
+
+{{> footer }}

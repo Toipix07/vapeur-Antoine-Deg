@@ -1,0 +1,33 @@
+{{> header }}
+
+<main>
+    <h1>Créer un jeu</h1>
+    <form action="/games/create" method="POST">
+        <label for="title">Titre :</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="description">Description :</label>
+        <textarea name="description" id="description" required></textarea>
+
+        <label for="releaseDate">Date de sortie :</label>
+        <input type="date" name="releaseDate" id="releaseDate" required>
+
+        <label for="genreId">Genre :</label>
+        <select name="genreId" id="genreId" required>
+            {{#each genres}}
+                <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+        <label for="editorId">Éditeur :</label>
+        <select name="editorId" id="editorId" required>
+            {{#each editors}}
+                <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+        <button type="submit">Créer le jeu</button>
+    </form>
+</main>
+
+{{> footer }}

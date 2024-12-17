@@ -1,0 +1,13 @@
+{{> header }}
+
+<main>
+    <h1>Créer un éditeur</h1>
+    <form action="/editors/create" method="POST">
+        <label for="name">Nom de l'éditeur :</label>
+        <input type="text" name="name" id="name" required>
+
+        <button type="submit">Créer l'éditeur</button>
+    </form>
+</main>
+
+{{> footer }}

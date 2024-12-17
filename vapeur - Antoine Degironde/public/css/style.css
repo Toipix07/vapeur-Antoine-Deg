@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 1rem 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #f8f9fa;
+}
+
+main {
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 5rem; 
+    margin-bottom: 5rem;
+}
+
+main h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* couleur qui se repete*/
+ul li:nth-child(6n+1) {
+    background-color: #FF5733; 
+}
+
+ul li:nth-child(6n+2) {
+    background-color: #33FF57; 
+}
+
+ul li:nth-child(6n+3) {
+    background-color: #3357FF; 
+}
+
+ul li:nth-child(6n+4) {
+    background-color: #F39C12; 
+}
+
+ul li:nth-child(6n+5) {
+    background-color: #8E44AD; 
+}
+
+ul li:nth-child(6n+6) {
+    background-color: #1ABC9C; 
+}
+
+
+ul li:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    font-size: 0.8rem;
+    color: #ddd;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
