@@ -56,7 +56,7 @@ docker compose up
 
 L’appli est exposée sur :
 
-    Backend : http://localhost:3000
+    http://localhost:3000
 
     PostgreSQL : localhost:5433 (user vapeuruser, db vapeurdb)
 
@@ -73,3 +73,4 @@ npx prisma db push
 
 # Arrêter et tout nettoyer (conteneurs + volume DB)
 docker compose down -
+
