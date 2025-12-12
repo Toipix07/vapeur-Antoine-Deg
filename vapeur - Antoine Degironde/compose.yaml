@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    container_name: vapeur-db
+    restart: always
+    environment:
+      POSTGRES_DB: vapeurdb
+      POSTGRES_USER: vapeuruser
+      POSTGRES_PASSWORD: superpass123
+    ports:
+      - "5433:5432"  
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vapeur-antoinedegironde-app
+    container_name: vapeur-app
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    secrets:
+      - db_password
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+
+volumes:
+  db_data:

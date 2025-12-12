@@ -6,6 +6,35 @@ const hbs = require('express-handlebars');
 const helpers = require('./utils/helpers'); 
 const handlebars = require('handlebars');
 
+// Global error handlers to surface unexpected crashes inside the container
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception thrown:', err);
+});
+
+// Debugging: log PID and lifecycle signals to help diagnose unexpected exits
+console.log('Starting app process, pid=', process.pid);
+process.on('exit', (code) => console.log('Process exiting with code', code));
+process.on('SIGINT', () => { console.log('Received SIGINT'); process.exit(0); });
+process.on('SIGTERM', () => { console.log('Received SIGTERM'); process.exit(0); });
+
+// Heartbeat for short-term debugging (will show the process is alive every 5s)
+const _hb = setInterval(() => console.log('heartbeat (app alive)'), 5000);
+process.on('beforeExit', (code) => {
+    try {
+        const handles = process._getActiveHandles ? process._getActiveHandles().length : 'unknown';
+        const requests = process._getActiveRequests ? process._getActiveRequests().length : 'unknown';
+        console.log('beforeExit', code, 'activeHandles=', handles, 'activeRequests=', requests);
+    } catch (e) {
+        console.log('beforeExit', code);
+    }
+});
+process.on('exit', (code) => {
+    console.log('process exit', code);
+});
+
 
 // Initialise l'application Express
 const app = express();
@@ -36,10 +65,15 @@ async function createDefaultGenres() {
 }
 
 // Crée les genres par défaut au démarrage de l'application
-createDefaultGenres().catch(e => {
-    console.error(e);
-    process.exit(1);
-});
+createDefaultGenres()
+    .then(() => {
+        console.log('Genres par défaut créés (ou déjà présents).');
+    })
+    .catch(e => {
+        console.error('Erreur lors de la création des genres par défaut :', e);
+        // IMPORTANT : on NE fait PAS process.exit(1) ici
+    });
+
 
 // Configuration Handlebars
 app.engine('hbs', hbs.engine({ extname: '.hbs', helpers }));
@@ -203,14 +237,21 @@ app.get('/genres', async (req, res) => {
 
 // Route pour afficher la liste des éditeurs
 app.get('/editors', async (req, res) => {
-    const editors = await prisma.editor.findMany({
-        orderBy: { name: 'asc' },
-    });
-    include: {
-        games: true 
+    try {
+        const editors = await prisma.editor.findMany({
+            orderBy: { name: 'asc' },
+            include: {
+                games: true, 
+            },
+        });
+
+        res.render('editors', { editors });
+    } catch (error) {
+        console.error('Erreur lors de la récupération des éditeurs :', error);
+        res.status(500).send('Erreur serveur');
     }
-    res.render('editors', { editors });
 });
+
 
 app.get('/editors/create', (req, res) => {
     console.log('La route pour créer un éditeur a été atteinte');
